@@ -73,6 +73,9 @@ def different_words(hist):
 Beyond simply calculating word frequencies there are some other ways to summarize the words in a text. For instance, what are the top 10 words in each text? What are the words that appear the most in each text that don't appear in other texts? 
 '''
 def mostCommon(hist, excludingBasicWords = True):
+    '''
+    Evaluates the 10 most common words using a historgram dictionary. Excludes basic words that are stored in stopwords.txt
+    '''
     commonWords = []
 
     stopWords = processText('data/stopwords.txt',False) # from https://algs4.cs.princeton.edu/35applications/stopwords.txt
@@ -138,7 +141,6 @@ def cleanText(skip_header):
 def nlpAnalysis():
     cleanText(skip_header=True)
     processedText = cleanText(skip_header=True)
-    # scoreList = []
     score = SentimentIntensityAnalyzer().polarity_scores(processedText)
 
     print("Sentiment Score: ", score)
