@@ -1,9 +1,11 @@
 
 from concurrent.futures import process
 import random
-import string
 import sys
 from unicodedata import category
+from string import punctuation
+from string import whitespace
+from markovanalysis import*
 
 ## Part 1: Harvesting text
 
@@ -14,6 +16,9 @@ import urllib.request
 ### Characterizing by Word Frequencies
 
 ## File exported as text file
+
+
+url = 'https://www.gutenberg.org/files/219/219-0.txt'
 
 def processText(filename,skip_header):
     '''
@@ -47,6 +52,12 @@ def processText(filename,skip_header):
             hist[word] = hist.get(word, 0) + 1
 
     return hist
+
+def randomWord(hist):
+    temp = []
+    for word, freq in hist.items():
+        temp.extend([word]*freq)
+    return random.choice(temp)
 
 def skip_gutenberg_header(fp):
     """Reads from fp until it finds the line that ends the header.
@@ -163,5 +174,13 @@ def main():
     print('NATURAL LANGUAGE PROCESSING ANALYSIS:')
     nlpAnalysis()
 
+    print("\n\nHere are some random words from the book")
+    for i in range(100):
+        print(randomWord(frequencyDict), end=' ')
+
+    print()
 if __name__ == '__main__':
     main()
+    markovMain()
+
+    # url = https://www.gutenberg.org/files/219/219-0.txt'
